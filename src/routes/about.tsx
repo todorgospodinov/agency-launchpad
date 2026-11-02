@@ -1,0 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/metadata";
+export const Route = createFileRoute("/about")({ head: () => pageHead("About us", "About Real News Agency and its newsroom."), component: About });
+function About() { return <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16"><p className="kicker">Our newsroom</p><h1 className="mt-3 font-display text-5xl font-semibold">Real News Agency</h1><p className="mt-8 font-display text-2xl leading-relaxed">A place for news across the world, politics, business, science, sports and culture.</p><p className="mt-6 leading-relaxed text-muted-foreground">Contributors submit stories for newsroom review before publication.</p><p className="mt-6 border-t pt-6 text-sm text-muted-foreground">The current stories are illustrative sample content, not verified reporting.</p></main>; }
