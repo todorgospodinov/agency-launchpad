@@ -9,15 +9,15 @@ import { Button } from "@/components/ui/button";
 import { pageHead } from "@/lib/metadata";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: typeof s.q === "string" ? s.q : "", category: typeof s.category === "string" ? s.category : "" }),
+  validateSearch: (s: Record<string, unknown>): { q?: string; category?: string } => ({ q: typeof s["q"] === "string" ? s["q"] : "", category: typeof s["category"] === "string" ? s["category"] : "" }),
   loaderDeps: ({ search }) => search,
-  loader: async ({ context, deps }) => { await Promise.all([context.queryClient.ensureQueryData(articlesQuery(deps.q, deps.category)), context.queryClient.ensureQueryData(latestQuery())]); },
+  loader: async ({ context, deps }) => { await Promise.all([context.queryClient.ensureQueryData(articlesQuery(deps.q || "", deps.category || "")), context.queryClient.ensureQueryData(latestQuery())]); },
   head: () => pageHead("Latest news", "The latest world, politics, business, science, sports and culture stories from Real News Agency."),
   component: Index,
 });
 
 function Index() {
-  const { q, category } = Route.useSearch();
+  const { q = "", category = "" } = Route.useSearch();
   const navigate = useNavigate();
   const [term, setTerm] = useState(q);
   useEffect(() => setTerm(q), [q]);
