@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { formatDate, type ArticleSummary } from "@/lib/articles";
+import { Button } from "@/components/ui/button";
 
 export function NewsCarousel({ items }: { items: ArticleSummary[] }) {
   const [ref, api] = useEmblaCarousel({ loop: true });
@@ -12,7 +13,7 @@ export function NewsCarousel({ items }: { items: ArticleSummary[] }) {
     if (!api) return;
     const onSelect = () => setIndex(api.selectedScrollSnap());
     api.on("select", onSelect);
-    const timer = setInterval(() => api.scrollNext(), 6000);
+    const timer = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? undefined : setInterval(() => api.scrollNext(), 6000);
     return () => {
       clearInterval(timer);
       api.off("select", onSelect);
@@ -54,32 +55,32 @@ export function NewsCarousel({ items }: { items: ArticleSummary[] }) {
       </div>
 
       <div className="absolute top-4 right-4 flex gap-2">
-        <button
+        <Button
           type="button"
           aria-label="Previous story"
           onClick={() => api?.scrollPrev()}
           className="grid size-9 place-items-center rounded-full bg-overlay text-on-overlay hover:bg-signal"
         >
           <ChevronLeft className="size-4" />
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
           aria-label="Next story"
           onClick={() => api?.scrollNext()}
           className="grid size-9 place-items-center rounded-full bg-overlay text-on-overlay hover:bg-signal"
         >
           <ChevronRight className="size-4" />
-        </button>
+        </Button>
       </div>
 
       <div className="mt-3 flex justify-center gap-2">
         {items.map((a, i) => (
-          <button
+          <Button
             key={a.id}
             type="button"
             aria-label={`Go to story ${i + 1}`}
             onClick={() => api?.scrollTo(i)}
-            className={`h-1 rounded-full transition-all ${i === index ? "w-8 bg-signal" : "w-4 bg-border"}`}
+            className={`h-1 p-0 rounded-full transition-all ${i === index ? "w-8 bg-signal" : "w-4 bg-border"}`}
           />
         ))}
       </div>

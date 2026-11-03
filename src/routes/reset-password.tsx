@@ -1,0 +1,10 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { AuthShell, Field, Notice, SubmitButton } from "@/components/auth/AuthShell";
+import { pageHead } from "@/lib/metadata";
+export const Route = createFileRoute("/reset-password")({ head: () => pageHead("Set a new password", "Choose a new password for Real News Agency."), component: Reset });
+function Reset() { const [password, setPassword] = useState(""); const [confirm, setConfirm] = useState(""); const [valid, setValid] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const [done, setDone] = useState(false);
+  useEffect(() => { const recovery = new URLSearchParams(window.location.hash.slice(1)).get("type") === "recovery"; if (recovery) sessionStorage.setItem("real-news-recovery", "true"); supabase.auth.getUser().then(({ data }) => setValid(!!data.user && (recovery || sessionStorage.getItem("real-news-recovery") === "true"))); }, []);
+  return <AuthShell title="New password">{done ? <Notice tone="success">Password updated. <Link to="/login">Sign in</Link></Notice> : !valid ? <p className="text-sm">Open the link from your recovery email. <Link to="/forgot-password" className="underline">Request a new link</Link></p> : <form className="space-y-5" onSubmit={async e => { e.preventDefault(); if (password !== confirm) return setError("Passwords do not match."); setBusy(true); const { error: err } = await supabase.auth.updateUser({ password }); setBusy(false); if (err) setError(err.message); else { sessionStorage.removeItem("real-news-recovery"); setDone(true); } }}>{error && <Notice>{error}</Notice>}<Field label="New password" type="password" minLength={8} required value={password} onChange={e => setPassword(e.target.value)} /><Field label="Confirm password" type="password" required value={confirm} onChange={e => setConfirm(e.target.value)} /><SubmitButton disabled={busy}>Save password</SubmitButton></form>}</AuthShell>;
+}

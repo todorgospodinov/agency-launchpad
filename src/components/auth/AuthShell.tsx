@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
 export function AuthShell({
   title,
@@ -48,13 +49,13 @@ export function TextArea({ label, ...props }: { label: string } & React.Textarea
 
 export function SubmitButton({ children, disabled }: { children: ReactNode; disabled?: boolean }) {
   return (
-    <button
+    <Button
       type="submit"
       disabled={disabled}
       className="inline-flex w-full items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-signal disabled:opacity-60"
     >
       {children}
-    </button>
+    </Button>
   );
 }
 

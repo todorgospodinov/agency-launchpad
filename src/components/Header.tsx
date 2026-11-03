@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { CATEGORIES } from "@/lib/articles";
+import { Button } from "@/components/ui/button";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export function Header() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/login", replace: true });
+    navigate({ to: "/auth", replace: true });
   }
 
   const linkCls = "text-sm text-muted-foreground transition-colors hover:text-foreground";
@@ -42,7 +43,7 @@ export function Header() {
                 <Link to="/profile" className={`${linkCls} max-w-[16ch] truncate`}>
                   {displayName || user.email}
                 </Link>
-                <button type="button" onClick={signOut} className={linkCls}>Sign out</button>
+                 <Button variant="link" type="button" onClick={signOut} className={linkCls}>Sign out</Button>
               </>
             ) : (
               <>
@@ -51,14 +52,14 @@ export function Header() {
               </>
             )}
           </div>
-          <button
+           <Button variant="ghost" size="icon"
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((o) => !o)}
             className="ml-auto sm:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+           </Button>
         </div>
 
         <div className="py-6 text-center">
@@ -101,7 +102,7 @@ export function Header() {
                 <Link to="/my-articles" className={linkCls}>My articles</Link>
                 {isAdmin && <Link to="/admin" className={linkCls}>Newsroom</Link>}
                 <Link to="/profile" className={linkCls}>{displayName || user.email}</Link>
-                <button type="button" onClick={signOut} className={`${linkCls} text-left`}>Sign out</button>
+                 <Button variant="link" type="button" onClick={signOut} className={`${linkCls} justify-start`}>Sign out</Button>
               </>
             ) : (
               <>
