@@ -15,6 +15,13 @@
       "when": 1793717204275,
       "tag": "0001_private_user_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793902949670,
+      "tag": "0002_manual_admin_only",
+      "breakpoints": true
     }
   ]
 }
