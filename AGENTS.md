@@ -12,3 +12,5 @@
 - Public news pages use TanStack Query loaders and route-specific metadata so stories are searchable and shareable.
 - Personal pages live under the authenticated layout; database RLS enforces owner and newsroom access independently of the UI.
 - Use the shared design-system Button for interactive actions and semantic stylesheet tokens for visuals.
+- Store administrator privileges only in protected public.user_roles records and enforce them through has_role in RLS; client metadata must never authorize writes.
+- Administrator provisioning is manual SQL only; no application RPC or UI may grant roles, preventing public privilege escalation.

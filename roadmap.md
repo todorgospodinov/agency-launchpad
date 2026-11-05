@@ -5,3 +5,7 @@
 - [x] Newsroom management
 - [x] Verify public search, article reading, mobile menu and signed-out access guards
 - [ ] Verify signed-in submission, editing and newsroom actions — blocked: no account exists yet
+- [x] Remove admin provisioning UI and RPCs; verify role-write protection
+- [x] Document manual admin assignment and all application environment variables
+- [x] Run admin security regression tests; all 11 security/routing tests pass
+- [ ] Place timestamped SQL under supabase/migrations — blocked: platform restricts writes to that managed directory; README maps committed SQL to portable filenames
