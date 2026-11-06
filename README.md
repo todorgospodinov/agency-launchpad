@@ -65,8 +65,15 @@ WHERE role = 'admin'
 | `SUPABASE_SERVICE_ROLE_KEY` | Generated privileged server client; read lazily only when used | Optional, unused by normal features; required only for future authorized privileged operations that use that client |
 | `LOVABLE_CRON_SECRET` | Generated cron authorization helper | Optional; no current application endpoint uses it |
 | `LOVABLE_CRON_SECRET_PREVIOUS` | Generated cron authorization helper for rotation | Optional; no current application endpoint uses it |
+| `LOVABLE_API_KEY` | Server-only editorial AI requests | Required only for the newsroom AI assistant; set as a private environment variable on Vercel, never with a `VITE_` prefix |
 
 Public news, sign-in, profiles, personal stories and newsroom actions do not require `SUPABASE_SERVICE_ROLE_KEY`. Privileged credentials must remain server-only, must never use a `VITE_` prefix, and must never be committed. Lovable Cloud manages its credentials; obtaining a service-role key is not necessary for this app. Build and browser-check environment settings are tooling, not application configuration.
+
+## Portable SQL migrations
+
+## Editorial AI assistant
+
+Administrators can draft from source notes, rewrite, suggest headlines, summarize and review stories in the newsroom. The assistant uses ChatGPT (GPT-6 Astra) through Lovable AI Gateway. Each request verifies the signed-in account and its protected admin role on the server. Results are suggestions only: nothing is saved, published, rejected or featured automatically. Inputs and suggestions are not stored as conversation history. Submitted text is sent to the AI service; review source accuracy before using any result. The assistant cannot independently verify facts or browse sources. AI usage consumes workspace credits after the free allowance. For your Vercel deployment, configure `LOVABLE_API_KEY` as a private server environment variable; existing account and database configuration is unchanged.
 
 ## Portable SQL migrations
 
