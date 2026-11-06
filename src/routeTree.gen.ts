@@ -21,6 +21,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedMyArticlesRouteImport } from './routes/_authenticated/my-articles'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedWriteRouteImport } from './routes/_authenticated/write'
+import { Route as ApiEditorialAssistantRouteImport } from './routes/api/editorial-assistant'
 import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 import { Route as AuthenticatedEditIdRouteImport } from './routes/_authenticated/edit.$id'
 
@@ -83,6 +84,11 @@ const AuthenticatedWriteRoute = AuthenticatedWriteRouteImport.update({
   path: '/write',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiEditorialAssistantRoute = ApiEditorialAssistantRouteImport.update({
+  id: '/api/editorial-assistant',
+  path: '/api/editorial-assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
   id: '/articles/$slug',
   path: '/articles/$slug',
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/my-articles': typeof AuthenticatedMyArticlesRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/write': typeof AuthenticatedWriteRoute
+  '/api/editorial-assistant': typeof ApiEditorialAssistantRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/edit/$id': typeof AuthenticatedEditIdRoute
 }
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/my-articles': typeof AuthenticatedMyArticlesRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/write': typeof AuthenticatedWriteRoute
+  '/api/editorial-assistant': typeof ApiEditorialAssistantRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/edit/$id': typeof AuthenticatedEditIdRoute
 }
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/_authenticated/my-articles': typeof AuthenticatedMyArticlesRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/write': typeof AuthenticatedWriteRoute
+  '/api/editorial-assistant': typeof ApiEditorialAssistantRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/_authenticated/edit/$id': typeof AuthenticatedEditIdRoute
 }
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/my-articles'
     | '/profile'
     | '/write'
+    | '/api/editorial-assistant'
     | '/articles/$slug'
     | '/edit/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/my-articles'
     | '/profile'
     | '/write'
+    | '/api/editorial-assistant'
     | '/articles/$slug'
     | '/edit/$id'
   id:
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/_authenticated/my-articles'
     | '/_authenticated/profile'
     | '/_authenticated/write'
+    | '/api/editorial-assistant'
     | '/articles/$slug'
     | '/_authenticated/edit/$id'
   fileRoutesById: FileRoutesById
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  ApiEditorialAssistantRoute: typeof ApiEditorialAssistantRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
 }
 
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWriteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/editorial-assistant': {
+      id: '/api/editorial-assistant'
+      path: '/api/editorial-assistant'
+      fullPath: '/api/editorial-assistant'
+      preLoaderRoute: typeof ApiEditorialAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/articles/$slug': {
       id: '/articles/$slug'
       path: '/articles/$slug'
@@ -333,6 +353,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  ApiEditorialAssistantRoute: ApiEditorialAssistantRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
 }
 export const routeTree = rootRouteImport
