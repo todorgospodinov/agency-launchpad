@@ -1,4 +1,6 @@
 # Real News Agency
+- [ ] Add administrator-only AI writing and editorial review with ChatGPT
+- [ ] Verify AI authorization, live generation and newsroom controls
 - [x] Home, search, latest-news carousel and article pages
 - [x] Sign-in, registration, password recovery and profiles
 - [x] Personal article creation and editing
